@@ -171,6 +171,9 @@
 																		</AffectedVehicleJourney>
 																</VehicleJourneys>
 														</Affects>
+														<Advice>
+																<AdviceType>noMeansOfTravel</AdviceType>
+														</Advice>
 														<Blocking>
 																<JourneyPlanner>true</JourneyPlanner>
 																<!-- handle no-service in Journey Planner -->
