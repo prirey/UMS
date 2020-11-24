@@ -308,7 +308,7 @@
 									 it would run all the way (but ends the trip in Blankenese) -->
 							</Blocking>
 							<Delays>
-								<DelayType>incremental</DelayType>
+								<!--TODO <DelayType>incremental</DelayType>-->
 								<Delay>PT5M</Delay>
 							</Delays><!--TODO
 							<DelayIncrements>
