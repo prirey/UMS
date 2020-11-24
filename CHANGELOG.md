@@ -81,17 +81,23 @@
 * TextualContentStructure:InfoLinks new type InfoLinksStructureStructure, moved after Images
 * PublicEventTypeEnum, FacilityCategoryEnumeration, RemedyStructure: clean up 
 
-## 20201124 - clean up SX examples
-
-## TODOs
-### Remaining DIFFS with CEN
-#### CEN_CR-079
+## 20201124 - Sync CEN CR079 
 * AffectedStopPlaceStructure: new Lines element
 * AffectedLineStructure: new elements StopPoints, StopPlaces
 * AffectedStopPointStructure:StopPlaceRef / StopPlaceName / Lines
 * RoutePointTypeEnumeration
 * XML Schema upgrade
-### TBD
+* Default in version attributes=2.1
+* StopMonitoringRequestPolicyGroup:IncludeSituations default=false
+* DeliveryEndpointGroup:MessageQualifierStructure replaced by MessageRefStructure
+* SubscriptionIdentifierResourcePropertyGroup: SubscriptionQualifierStructure replaced by SubscriptionRefStructure
+* AffectedNetworkStructure: SelectedRoutes type set to AffectedRouteStructure, AffectedSection element added in choice between AllLine, SelectedRoutes and AffectedLine
+* SituationExchangeSubscriptionRequest:IncrementatlUpdates default set to false
+
+
+## TODOs
+### Remaining DIFFS with CEN
+* clean up SX examples
 * AffectedStopDepartureGroup:DeparturePlatformName unbounded
 * siri-modes-v1.1.xsd
 * SX examples
