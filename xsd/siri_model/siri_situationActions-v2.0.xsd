@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2018 sp1 (x64) (http://www.altova.com) von David Sielaff (Verkehrsverbund Rhein-Sieg GmbH) bearbeitet -->
-<xsd:schema xmlns="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.siri.org.uk/siri" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0" id="siri_situationActions">
+<xsd:schem xmlns="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.siri.org.uk/siri" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1" id="siri_situationActions">
  <!--
 10.01.2018 D. Rubli, Siri_XML-2.0p synchronisation of recommendation with xsd:
 - PublishToDisplayAction added to ActionsGroup
@@ -57,12 +56,18 @@
      <Modified>2007-04-17</Modified>
     </Date>
     <Date><Modified>2013-10-01</Modified>
-          (a) Added PublishToDisplayAction element definition
-          (b) Corrected default values for string fields
+     <!-- (a) Added PublishToDisplayAction element definition (b) Corrected default values for string fields -->
         </Date>
     <Date><Modified>2013-05-01</Modified>
-         [de] Add SocialNetworks to PublishToWeb action
+     <!-- [de] Add SocialNetworks to PublishToWeb action -->
         </Date>
+    <Date><Modified>2018-11-13</Modified>
+     <!-- [vdv] ActionsStructure.ActionsGroup.PublishToTvAction changed to unbounded [vdv] ActionsStructure.ActionsGroup.NotifyBySmsAction changed to unbounded [vdv] PublishToDisplayAction added to ActionsGroup [vdv] ActionsStructure.ActionsGroup.PublishToTvAction.Ceefax and Teletext: annotation switched -->
+    </Date>
+    <Date>
+     <Modified>2020-07-14</Modified>
+     <!-- [vdv] New elements added to the ParameterisedActionStructure -->
+				</Date>
     <Description>
      <p>SIRI-SX is an XML schema for the exchange of structured SITUATIONs. This subschema describes publishing actions </p>
     </Description>
@@ -79,14 +84,14 @@
     </Relation>
     <Rights>Unclassified
 
-       <Copyright>Kizoom 2000-2007, CEN 2009-2014</Copyright>
+										<Copyright>Kizoom 2000-2007, CEN 2009-2020</Copyright>
         </Rights>
     <Source>
      <ul>
       <li>Schema derived Derived from the Kizoom XTIS schema </li>
      </ul>
     </Source>
-    <Status>Version 2.0 Draft</Status>
+    <Status>Version 2.1</Status>
     <Subject>
      <Category>Arts, recreation and travel, Tourism, Travel (tourism), Transport,
 Air transport, Airports,
@@ -626,6 +631,7 @@ Rail transport, Roads and road transport
      <xsd:documentation>Description of SITUATION. Should not repeat any strap line included in Summary.  (Unbounded since SIRI 2.0)</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
+   <!--TODO integrate in CEN -->
    <xsd:element name="DescriptionCloze" minOccurs="0">
     <xsd:annotation>
      <xsd:documentation>TBD</xsd:documentation>
@@ -656,6 +662,7 @@ Rail transport, Roads and road transport
      <xsd:documentation>Further consequence to passengers.  (Unbounded since SIRI 2.0)</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
+   <!--TODO integrate in CEN -->
    <xsd:element name="ConsequenceCloze" minOccurs="0">
     <xsd:annotation>
      <xsd:documentation>TBD</xsd:documentation>
@@ -695,22 +702,15 @@ Rail transport, Roads and road transport
      <xsd:documentation>ReasonName of passenger information action.</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-     </xsd:sequence>
-    </xsd:complexType>
- <xsd:complexType name="AdviceContentStructure">
-  <xsd:sequence>
-   <xsd:element name="AdviceText" type="DefaultedTextStructure" maxOccurs="unbounded">
-    <xsd:annotation>
-     <xsd:documentation>Further advice to passengers. (Unbounded since SIRI 2.0)</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- <xsd:element name="RecommendationCloze" minOccurs="0">
+   <!--TODO integrate in CEN -->
+ <xsd:element name="ReasonNameCloze" minOccurs="0">
     <xsd:annotation>
      <xsd:documentation>TBD</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType>
      <xsd:sequence>
-      <xsd:element name="Recommendation" type="RecommendationStructure" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:group ref="ReasonGroup"/>
+      <xsd:element name="Location" type="LocationStructure"/>
       <xsd:element name="Extensions" type="xsd:anyType" minOccurs="0">
        <xsd:annotation>
         <xsd:documentation>Extension point.</xsd:documentation>
@@ -718,17 +718,27 @@ Rail transport, Roads and road transport
       </xsd:element>
      </xsd:sequence>
     </xsd:complexType>
-   </xsd:element>-->
+ </xsd:element>
+  </xsd:sequence>
+ </xsd:complexType>
+
+	
+ <xsd:complexType name="AdviceContentStructure">
+  <xsd:sequence>
+   <xsd:element name="AdviceText" type="DefaultedTextStructure" maxOccurs="unbounded">
+    <xsd:annotation>
+     <xsd:documentation>Further advice to passengers. (Unbounded since SIRI 2.0)</xsd:documentation>
+       </xsd:annotation>
+      </xsd:element>
    <xsd:element name="AdvicePriority" type="xsd:positiveInteger" minOccurs="0">
     <xsd:annotation>
      <xsd:documentation>Prioritises an advice from the information owner's point of view, e.g. usable for sorting or hiding individual recommendations.
-      1 = highest priority.</xsd:documentation>
+1 = highest priority.</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
   </xsd:sequence>
- </xsd:complexType>
- 
- <!--<xsd:complexType name="RecommendationStructure">
+ </xsd:complexType><!--TODO RecommendationStructure cannot be defined because already exists in same namespace (shee siri_journey-v.2.0)
+ <xsd:complexType name="RecommendationStructure">
   <xsd:sequence>
    <xsd:element name="Option" type="RecommendationOptionEnumeration"/>
    <xsd:element name="Affects" type="AffectsScopeStructure" maxOccurs="unbounded"/>
@@ -767,7 +777,8 @@ Rail transport, Roads and road transport
      <xsd:documentation>Summary of passenger information action.</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-  <!-- <xsd:element name="SummaryCloze" minOccurs="0">
+   <!--TODO integrate in CEN -->
+   <xsd:element name="SummaryCloze" minOccurs="0">
     <xsd:annotation>
      <xsd:documentation>TBD</xsd:documentation>
     </xsd:annotation>
@@ -786,7 +797,7 @@ Rail transport, Roads and road transport
       </xsd:element>
      </xsd:sequence>
     </xsd:complexType>
-   </xsd:element>-->
+   </xsd:element>
   </xsd:sequence>
  </xsd:complexType>
  <xsd:complexType name="InternalContentStructure">
